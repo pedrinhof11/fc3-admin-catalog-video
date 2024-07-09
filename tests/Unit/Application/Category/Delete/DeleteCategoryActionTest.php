@@ -4,6 +4,7 @@ namespace Tests\Unit\Application\Category\Delete;
 
 use Core\Application\Category\Delete\DeleteCategoryAction;
 use Core\Application\Category\Delete\DeleteCategoryRequest;
+use Core\Application\Category\Delete\DeleteCategoryResponse;
 use Core\Domain\Category\Entity\Category;
 use Core\Domain\Category\UseCase\Delete\DeleteCategoryRepository;
 use PHPUnit\Framework\TestCase;
@@ -20,11 +21,16 @@ class DeleteCategoryActionTest extends TestCase
 
         $repository
             ->expects($this->once())
-            ->method('delete');
+            ->method('delete')
+            ->with($id)
+            ->willReturn(true);
 
         $action = new DeleteCategoryAction($repository);
 
-        $action->execute(new DeleteCategoryRequest($id));
+        $response = $action->execute(new DeleteCategoryRequest($id));
+
+        $this->assertInstanceOf(DeleteCategoryResponse::class, $response);
+        $this->assertTrue($response->success());
 
     }
 }

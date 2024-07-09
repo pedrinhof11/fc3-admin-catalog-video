@@ -7,6 +7,6 @@ use Core\Domain\Shared\ValueObject\Uuid;
 
 interface DeleteCategoryRepository
 {
-    public function delete(string $id): void;
+    public function delete(string $id): bool;
 
 }

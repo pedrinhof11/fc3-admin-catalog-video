@@ -3,8 +3,10 @@
 namespace Core\Application\Category\Delete;
 
 use Core\Domain\Category\UseCase\Delete\DeleteCategoryInput;
+use Core\Domain\Category\UseCase\Delete\DeleteCategoryOutput;
 use Core\Domain\Category\UseCase\Delete\DeleteCategoryRepository;
 use Core\Domain\Category\UseCase\Delete\DeleteCategoryUseCase;
+use PHPUnit\Event\Code\Throwable;
 
 class DeleteCategoryAction implements DeleteCategoryUseCase
 {
@@ -14,8 +16,10 @@ class DeleteCategoryAction implements DeleteCategoryUseCase
     {
     }
 
-    public function execute(DeleteCategoryInput $input)
+    public function execute(DeleteCategoryInput $input): DeleteCategoryOutput
     {
-        $this->repository->delete($input->getId());
+        $removed = $this->repository->delete($input->getId());
+
+        return new DeleteCategoryResponse($removed);
     }
 }
