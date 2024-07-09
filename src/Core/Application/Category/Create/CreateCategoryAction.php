@@ -2,9 +2,9 @@
 
 namespace Core\Application\Category\Create;
 
+use Core\Domain\Category\UseCase\Create\Contracts\CreateCategoryOutput;
 use Core\Domain\Category\UseCase\Create\Contracts\CreateCategoryRepository;
-use Core\Domain\Category\UseCase\Create\Contracts\ICreateCategoryInput;
-use Core\Domain\Category\UseCase\Create\Contracts\ICreateCategoryOutput;
+use Core\Domain\Category\UseCase\Create\Contracts\CreateCategoryInput;
 use Core\Domain\Category\UseCase\Create\CreateCategoryUseCase;
 
 class CreateCategoryAction implements CreateCategoryUseCase
@@ -15,7 +15,7 @@ class CreateCategoryAction implements CreateCategoryUseCase
     {
     }
 
-    public function execute(ICreateCategoryInput $input): ICreateCategoryOutput
+    public function execute(CreateCategoryInput $input): CreateCategoryOutput
     {
         $category = $this->repository->create($input->toEntity());
         return new CreateCategoryResponse($category);

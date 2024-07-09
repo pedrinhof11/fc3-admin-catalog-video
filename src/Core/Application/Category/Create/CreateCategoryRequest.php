@@ -3,9 +3,9 @@
 namespace Core\Application\Category\Create;
 
 use Core\Domain\Category\Entity\Category;
-use Core\Domain\Category\UseCase\Create\Contracts\ICreateCategoryInput;
+use Core\Domain\Category\UseCase\Create\Contracts\CreateCategoryInput;
 
-class CreateCategoryRequest implements ICreateCategoryInput
+class CreateCategoryRequest implements CreateCategoryInput
 {
 
     public function __construct(

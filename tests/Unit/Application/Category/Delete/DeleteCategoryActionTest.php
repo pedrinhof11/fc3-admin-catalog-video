@@ -31,6 +31,26 @@ class DeleteCategoryActionTest extends TestCase
 
         $this->assertInstanceOf(DeleteCategoryResponse::class, $response);
         $this->assertTrue($response->success());
+    }
 
+    public function test_execute_delete_category_with_success_false()
+    {
+        $categoryStub = Category::create('teste', '');
+        $id = $categoryStub->getId();
+
+        $repository = $this->createMock(DeleteCategoryRepository::class);
+
+        $repository
+            ->expects($this->once())
+            ->method('delete')
+            ->with($id)
+            ->willReturn(false);
+
+        $action = new DeleteCategoryAction($repository);
+
+        $response = $action->execute(new DeleteCategoryRequest($id));
+
+        $this->assertInstanceOf(DeleteCategoryResponse::class, $response);
+        $this->assertfalse($response->success());
     }
 }

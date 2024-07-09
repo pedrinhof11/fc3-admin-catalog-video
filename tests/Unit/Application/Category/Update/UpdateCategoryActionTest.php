@@ -7,7 +7,6 @@ use Core\Application\Category\Update\UpdateCategoryRequest;
 use Core\Domain\Category\Entity\Category;
 use Core\Domain\Category\UseCase\Update\UpdateCategoryOutput;
 use Core\Domain\Category\UseCase\Update\UpdateCategoryRepository;
-use Core\Domain\Shared\ValueObject\Uuid;
 use PHPUnit\Framework\TestCase;
 
 class UpdateCategoryActionTest extends TestCase
@@ -52,6 +51,7 @@ class UpdateCategoryActionTest extends TestCase
         $this->assertEquals($response->getDescription(), $categoryStub->getDescription());
         $this->assertTrue($response->isActive());
         $this->assertEquals($response->getCreatedAt(), $categoryStub->getCreatedAt());
+        $this->assertEquals($response->getUpdatedAt(), $categoryStub->getUpdatedAt());
     }
 
     public function test_execute_rename_and_description_a_category()

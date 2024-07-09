@@ -9,7 +9,6 @@ use Core\Domain\Shared\ValueObject\Uuid;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 
-#[CoversNothing]
 class CategoryTest extends TestCase
 {
 
@@ -41,27 +40,38 @@ class CategoryTest extends TestCase
         $this->assertFalse($category->isActive());
     }
 
-    public function test_create_a_new_category_from()
+    public function test_from_create_category()
     {
         $id = Uuid::create();
-        $now = new \DateTimeImmutable();
+        $name = 'Test Category';
+        $description = 'This is a test category';
+        $isActive = true;
+        $createdAt = new \DateTimeImmutable();
+        $updatedAt = new \DateTimeImmutable();
 
-        $category = Category::from(
-            id: $id,
-            name: 'Category 1',
-            description: 'Category 1 description',
-            isActive: true,
-            createdAt: $now,
-            updatedAt: $now
-        );
+        $category = Category::from($id, $name, $description, $isActive, $createdAt, $updatedAt);
 
-        $this->assertEquals($id, $category->getId());
-        $this->assertEquals("$id", $category->getId()->getValue());
-        $this->assertEquals($now->format('Y-m-d H:i:s'), $category->getCreatedAt());
-        $this->assertEquals($now->format('Y-m-d H:i:s'), $category->getUpdatedAt());
-        $this->assertEquals('Category 1', $category->getName());
-        $this->assertEquals('Category 1 description', $category->getDescription());
-        $this->assertTrue($category->isActive());
+        $this->assertSame($id, $category->getId());
+        $this->assertSame($name, $category->getName());
+        $this->assertSame($description, $category->getDescription());
+        $this->assertSame($isActive, $category->isActive());
+        $this->assertSame($createdAt->format('Y-m-d H:i:s'), $category->getCreatedAt());
+        $this->assertSame($updatedAt->format('Y-m-d H:i:s'), $category->getUpdatedAt());
+    }
+
+    public function testFromConvertsStringDatesToDateTimeImmutable()
+    {
+        $id = Uuid::create();
+        $name = 'Test Category';
+        $description = 'This is a test category';
+        $isActive = true;
+        $createdAt = '2022-01-01 12:00:00';
+        $updatedAt = '2022-01-02 12:00:00';
+
+        $category = Category::from($id, $name, $description, $isActive, $createdAt, $updatedAt);
+
+        $this->assertEquals($createdAt, $category->getCreatedAt());
+        $this->assertEquals($updatedAt, $category->getUpdatedAt());
     }
 
 
