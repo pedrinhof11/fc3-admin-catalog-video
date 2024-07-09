@@ -37,10 +37,12 @@ class CreateCategoryActionTest extends TestCase
         $output = $action->execute($input);
 
         $this->assertInstanceOf(CreateCategoryResponse::class, $output);
-        $this->assertNotNull($output->toArray()['id']);
-        $this->assertEquals($expectedName, $output->toArray()['name']);
-        $this->assertEquals($expectedDescription, $output->toArray()['description']);
-        $this->assertTrue($output->toArray()['is_active']);
+        $this->assertNotNull($output->id());
+        $this->assertEquals($expectedName, $output->name());
+        $this->assertEquals($expectedDescription, $output->description());
+        $this->assertTrue($output->isActive());
+        $this->assertEquals($expectedCategory->getCreatedAt(), $output->createdAt());
+        $this->assertEquals($expectedCategory->getUpdatedAt(), $output->updatedAt());
 
         
     }

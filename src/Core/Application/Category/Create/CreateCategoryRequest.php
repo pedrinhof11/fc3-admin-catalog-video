@@ -10,7 +10,7 @@ class CreateCategoryRequest implements CreateCategoryInput
 
     public function __construct(
         private string $name,
-        private string $description,
+        private string $description = '',
         private bool $isActive = true
     )
     {
