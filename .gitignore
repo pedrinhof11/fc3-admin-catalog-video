@@ -1,0 +1,5 @@
+/vendor/
+*.log
+ls
+.idea
+.phpunit.result.cache
