@@ -25,5 +25,6 @@ class DeleteCategoryActionTest extends TestCase
         $action = new DeleteCategoryAction($repository);
 
         $action->execute(new DeleteCategoryRequest($id));
+
     }
 }
